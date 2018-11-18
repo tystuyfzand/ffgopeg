@@ -33,7 +33,7 @@ addons:
 # On develop branch
 go_import_path: github.com/targodan/ffgopeg
 # On master branch
-#go_import_path: gopkg.in/targodan/ffgopeg.v1
+#go_import_path: github.com/tystuyfzand/ffgopeg
 
 before_install:
     - pushd $HOME
