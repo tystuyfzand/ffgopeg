@@ -448,3 +448,15 @@ func AvformatGetMovVideoTags() *CodecTag {
 func AvformatGetMovAudioTags() *CodecTag {
 	return (*CodecTag)(C.avformat_get_mov_audio_tags())
 }
+
+//
+// C-Variable: AVRational::num
+func (r Rational) Num() int {
+	return int(r.num)
+}
+
+//
+// C-Variable: AVRational::den
+func (r Rational) Den() int {
+	return int(r.den)
+}

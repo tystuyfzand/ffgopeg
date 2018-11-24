@@ -89,3 +89,15 @@ func FopenUtf8(p, m string) *File {
 func TimeBaseQ() Rational {
 	return (Rational)(C.av_get_time_base_q())
 }
+
+//
+// C-Variable: AVRational::num
+func (r Rational) Num() int {
+	return int(r.num)
+}
+
+//
+// C-Variable: AVRational::den
+func (r Rational) Den() int {
+	return int(r.den)
+}
