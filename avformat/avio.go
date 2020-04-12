@@ -70,13 +70,12 @@ func avioReadPacket(data unsafe.Pointer, buf *C.uint8_t, size C.int) C.int {
 
 //export avioSeek
 func avioSeek(data unsafe.Pointer, pos C.int64_t, whence C.int) C.int64_t {
-	log.Println("Seek", int64(pos))
 	v := pointer.Restore(data).(*GoAvioReadSeeker)
 
 	endPos, err := v.reader.Seek(int64(pos), int(whence))
 
 	if err != nil {
-		panic("Unable to seek: " + err.Error())
+		return -1
 	}
 
 	return C.int64_t(endPos)
