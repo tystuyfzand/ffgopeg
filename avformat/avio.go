@@ -12,7 +12,6 @@ import (
 	"github.com/mattn/go-pointer"
 	"github.com/tystuyfzand/ffgopeg/avutil"
 	"io"
-	"log"
 	"unsafe"
 )
 
@@ -26,12 +25,14 @@ type GoAvioReadSeeker struct {
 }
 
 func (r *GoAvioReadSeeker) Close() error {
-	log.Println("Close")
 	pointer.Unref(r.pointer)
 	avutil.AvFree(unsafe.Pointer(r.ctx.buffer))
 	return nil
 }
 
+// Allocate a new IOContext, and return a GoAvioReadSeeker that should be closed when done to free resources.
+//
+// C-Function: avio_alloc_context
 func AvioAllocContext(reader io.ReadSeeker, bufferSize int) (*IOContext, *GoAvioReadSeeker) {
 	buffer := (*C.uchar)(avutil.AvMalloc(bufferSize))
 
