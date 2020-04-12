@@ -296,9 +296,17 @@ func (pb *IOContext) ProbeInputBuffer(url string, offset, maxProbeSize uint) (*I
 // OpenInput opens an input stream and reads the header.
 //
 // C-Function: avformat_open_input
-func OpenInput(url string, fmt *InputFormat, options **Dictionary) (*FormatContext, avutil.ReturnCode) {
-	var ctxt *FormatContext
-	err := avutil.NewReturnCode(int(C.avformat_open_input((**C.struct_AVFormatContext)(unsafe.Pointer(&ctxt)), C.CString(url), (*C.struct_AVInputFormat)(fmt), (**C.struct_AVDictionary)(unsafe.Pointer(options)))))
+func OpenInput(ctxt *FormatContext, filename string, fmt *InputFormat, options **Dictionary) (*FormatContext, avutil.ReturnCode) {
+	var cfilename *C.char
+
+	if filename == "" {
+		cfilename = nil
+	} else {
+		cfilename = C.CString(filename)
+		defer C.free(unsafe.Pointer(cfilename))
+	}
+
+	err := avutil.NewReturnCode(int(C.avformat_open_input((**C.struct_AVFormatContext)(unsafe.Pointer(&ctxt)), cfilename, (*C.struct_AVInputFormat)(fmt), (**C.struct_AVDictionary)(unsafe.Pointer(options)))))
 	return ctxt, err
 }
 

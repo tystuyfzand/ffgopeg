@@ -28,6 +28,11 @@ func (ctxt *FormatContext) Internal() *FormatInternal {
 	return (*FormatInternal)(unsafe.Pointer(ctxt.internal))
 }
 
+// C-Variable: AVFormatContext::pb
+func (ctxt *FormatContext) SetPb(val *IOContext) {
+	ctxt.pb = (*C.struct_AVIOContext)(val)
+}
+
 //
 // C-Variable: AVFormatContext::pb
 func (ctxt *FormatContext) Pb() *IOContext {
@@ -255,6 +260,12 @@ func (ctxt *FormatContext) Probesize2() int64 {
 // C-Variable: AVFormatContext::skip_initial_bytes
 func (ctxt *FormatContext) SkipInitialBytes() int64 {
 	return int64(ctxt.skip_initial_bytes)
+}
+
+//
+// C-Variable: AVFormatContext::start_time
+func (ctxt *FormatContext) SetStartTime(val int64) {
+	ctxt.start_time = C.long(val)
 }
 
 //
