@@ -53,20 +53,19 @@ func AvioAllocContext(reader io.ReadSeeker, bufferSize int) (*IOContext, *GoAvio
 
 //export avioReadPacket
 func avioReadPacket(data unsafe.Pointer, buf *C.uint8_t, size C.int) C.int {
-	log.Println("Read packet")
 	v := pointer.Restore(data).(*GoAvioReadSeeker)
 
 	n, err := v.reader.Read(v.goBuffer)
 
 	if err != nil {
-		return 1
+		return 0
 	}
 
 	if n >= 0 {
 		C.memcpy(unsafe.Pointer(buf), unsafe.Pointer(&v.goBuffer[0]), C.size_t(n))
 	}
 
-	return 0
+	return C.int(n)
 }
 
 //export avioSeek
