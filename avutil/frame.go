@@ -37,26 +37,28 @@ func MACRO_NUM_DATA_POINTERS() int {
 	return int(C.MACRO_NUM_DATA_POINTERS())
 }
 
-// Metadatap returns metadatap.
+// Metadata returns metadata.
 //
-// C-Function: avpriv_frame_get_metadatap
-func (f *Frame) Metadatap() **Dictionary {
-	return (**Dictionary)(unsafe.Pointer(C.avpriv_frame_get_metadatap((*C.struct_AVFrame)(unsafe.Pointer(f)))))
+// C-Variable AVFrame::metadata
+func (f *Frame) Metadata() *Dictionary {
+	return (*Dictionary)(f.metadata)
 }
 
 // SetQpTable sets the qp table.
 //
 // C-Function: av_frame_set_qp_table
-func (f *Frame) SetQpTable(b *BufferRef, s, q int) int {
-	return int(C.av_frame_set_qp_table((*C.struct_AVFrame)(unsafe.Pointer(f)), (*C.struct_AVBufferRef)(unsafe.Pointer(b)), C.int(s), C.int(q)))
-}
+// DEPRECATED
+//func (f *Frame) SetQpTable(b *BufferRef, s, q int) int {
+//	return int(C.av_frame_set_qp_table((*C.struct_AVFrame)(unsafe.Pointer(f)), (*C.struct_AVBufferRef)(unsafe.Pointer(b)), C.int(s), C.int(q)))
+//}
 
 // QpTable returns the qp table.
 //
 // C-Function: av_frame_get_qp_table
-func (f *Frame) QpTable(stride, t *int) int8 {
-	return int8(*C.av_frame_get_qp_table((*C.struct_AVFrame)(unsafe.Pointer(f)), (*C.int)(unsafe.Pointer(stride)), (*C.int)(unsafe.Pointer(t))))
-}
+// DEPRECATED
+//func (f *Frame) QpTable(stride, t *int) int8 {
+//	return int8(*C.av_frame_get_qp_table((*C.struct_AVFrame)(unsafe.Pointer(f)), (*C.int)(unsafe.Pointer(stride)), (*C.int)(unsafe.Pointer(t))))
+//}
 
 // NewFrame allocates a Frame and set its fields to default values.
 //
