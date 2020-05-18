@@ -15,11 +15,11 @@ func MakeQ(num, den int) Rational {
 //
 // C-Function: av_rescale
 func Rescale(a, b, c int64) int64 {
-	return int64(C.av_rescale(C.longlong(a), C.longlong(b), C.longlong(c)))
+	return int64(C.av_rescale(C.long(a), C.long(b), C.long(c)))
 }
 
 //
 // C-Function: av_rescale_q
 func RescaleQ(a int64, bq Rational, cq Rational) int64 {
-	return int64(C.av_rescale_q(C.longlong(a), (C.struct_AVRational)(bq), (C.struct_AVRational)(cq)))
+	return int64(C.av_rescale_q(C.long(a), (C.struct_AVRational)(bq), (C.struct_AVRational)(cq)))
 }
