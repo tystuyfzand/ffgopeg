@@ -20,7 +20,7 @@ func (d *Dictionary) Count() int {
 // C-Function: av_dict_count
 func (d *Dictionary) Get(key string) *DictionaryEntry {
 	var entry *DictionaryEntry
-	entry = (*DictionaryEntry)(C.av_dict_get((*C.struct_AVDictionary)(d), C.CString(key), (*C.struct_AVDictionaryEntry)(entry), C.AV_DICT_MATCH_CASE))
+	entry = (*DictionaryEntry)(C.av_dict_get((*C.struct_AVDictionary)(d), C.CString(key), (*C.struct_AVDictionaryEntry)(entry), 0))
 
 	return entry
 }

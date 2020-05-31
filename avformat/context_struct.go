@@ -265,7 +265,7 @@ func (ctxt *FormatContext) SkipInitialBytes() int64 {
 //
 // C-Variable: AVFormatContext::start_time
 func (ctxt *FormatContext) SetStartTime(val int64) {
-	ctxt.start_time = C.long(val)
+	ctxt.start_time = C.int64_t(val)
 }
 
 //

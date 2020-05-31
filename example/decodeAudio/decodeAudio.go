@@ -5,15 +5,13 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"io"
-	"math"
-	"os"
-
 	"github.com/targodan/native"
-
 	"github.com/tystuyfzand/ffgopeg/avcodec"
 	"github.com/tystuyfzand/ffgopeg/avformat"
 	"github.com/tystuyfzand/ffgopeg/avutil"
+	"io"
+	"math"
+	"os"
 )
 
 const rawOutOnPlanar = true
@@ -196,10 +194,11 @@ func main() {
 	bufFile := bufio.NewWriter(outFile)
 	defer bufFile.Flush()
 
-	// Initialize the libavformat. This registers all muxers, demuxers and protocols.
+	//Initialize the libavformat. This registers all muxers, demuxers and protocols.
 	avformat.RegisterAll()
 
-	formatCtx, code := avformat.OpenInput(inFilename, nil, nil)
+	formatCtx := avformat.NewFormatContext()
+	_, code := avformat.OpenInput(formatCtx, inFilename, nil, nil)
 	panicOnCode(code)
 	// Remember to clean up.
 	defer formatCtx.Close()
@@ -208,7 +207,7 @@ func main() {
 	// This does not consume any data. Any read packets are buffered for later use.
 	formatCtx.FindStreamInfo(nil)
 
-	// Try to find an audio stream.
+	//Try to find an audio stream.
 	audioStreamIndex, err := findFirstAudioStream(formatCtx)
 	panicOnErr(err)
 

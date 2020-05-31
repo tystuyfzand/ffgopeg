@@ -94,9 +94,10 @@ func RegisteredCodecs() <-chan *Codec {
 // RegisterCodec registers the codec and initializes libavcodec.
 //
 // C-Function: avcodec_register
-func RegisterCodec(c *Codec) {
-	C.avcodec_register((*C.struct_AVCodec)(c))
-}
+// DEPRECATED: Not needed anymore??
+//func RegisterCodec(c *Codec) {
+//	C.avcodec_register((*C.struct_AVCodec)(c))
+//}
 
 // FastPaddedMalloc allocates a buffer, reusing the given one if large enough.
 // The buffer has additional FF_INPUT_BUFFER_PADDING_SIZE at the end which will always be 0.
@@ -130,9 +131,10 @@ func License() string {
 // RegisterAll registers all the codecs, parsers and bitstream filters which were enabled at configuration time.
 //
 // C-Function: avcodec_register_all
-func RegisterAll() {
-	C.avcodec_register_all()
-}
+// DEPRECATED: Not needed anymore??
+//func RegisterAll() {
+//	C.avcodec_register_all()
+//}
 
 // GetClass returns the Class for CodecContext.
 //
